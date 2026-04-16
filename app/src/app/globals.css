@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-noir: #050505;
+  --color-noir-light: #0a0a0a;
+  --color-noir-surface: #111111;
+  --color-noir-border: #1a1a1a;
+  --color-horizon: #2563EB;
+  --color-horizon-glow: #3b82f6;
+  --color-carmin: #BE123C;
+  --color-carmin-glow: #e11d48;
+  --color-champagne: #D4AF37;
+  --color-champagne-glow: #e5c350;
+  --color-text-primary: #f0f0f0;
+  --color-text-secondary: #a0a0a0;
+  --color-text-muted: #666666;
+  --color-glass-bg: rgba(255, 255, 255, 0.05);
+  --color-glass-border: rgba(255, 255, 255, 0.08);
+  --color-glass-hover: rgba(255, 255, 255, 0.1);
+  --font-playfair: 'Playfair Display', Georgia, serif;
+  --font-cinzel: 'Cinzel', serif;
+  --font-inter: 'Inter', system-ui, sans-serif;
+  --font-space: var(--font-space), 'Space Grotesk', monospace;
+}
+
+/* ===== BASE STYLES ===== */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: #050505;
+}
+
+body {
+  background: #050505;
+  color: #f0f0f0;
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2563EB;
+}
+
+/* ===== TEXT SELECTION ===== */
+::selection {
+  background: rgba(37, 99, 235, 0.3);
+  color: #ffffff;
+}
+
+/* ===== GLASSMORPHISM ===== */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-hover:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* ===== DROP CAP ===== */
+.drop-cap::first-letter {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5em;
+  float: left;
+  line-height: 0.85;
+  padding-right: 0.12em;
+  padding-top: 0.05em;
+  color: #D4AF37;
+  font-weight: 700;
+}
+
+/* ===== GLOW EFFECTS ===== */
+.glow-blue {
+  box-shadow: 0 0 30px rgba(37, 99, 235, 0.15), 0 0 60px rgba(37, 99, 235, 0.05);
+}
+
+.glow-gold {
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.3), 0 0 40px rgba(212, 175, 55, 0.1);
+}
+
+/* ===== ACTIVE ELEMENTS ===== */
+a, button, [role="button"], input, select, textarea {
+  transition: opacity 0.2s;
+}
+
+/* ===== LOADING SHIMMER ===== */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===== TRICOLOR BAR ===== */
+.tricolor-gradient {
+  background: linear-gradient(90deg, #2563EB 0%, #2563EB 33%, #ffffff 33%, #ffffff 66%, #BE123C 66%, #BE123C 100%);
+}
+
+/* ===== NEW TYPOGRAPHY ===== */
+.font-space {
+  font-family: var(--font-space);
+}
+
+/* ===== PRESENTATION MODE ===== */
+.presentation-dim {
+  transition: opacity 0.8s ease, filter 0.8s ease;
+}
+
+body.presentation-mode-active .presentation-dim {
+  opacity: 0.15;
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+body.presentation-mode-active .presentation-highlight {
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
+  transition: filter 0.8s ease;
+}
