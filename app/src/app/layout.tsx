@@ -3,6 +3,8 @@ import { Inter, Playfair_Display, Cinzel, Space_Grotesk } from "next/font/google
 import "./globals.css";
 import { AccessibilityProvider } from "@/context/AccessibilityContext";
 import { PresentationProvider } from "@/context/PresentationContext";
+import { LanguageProvider } from "@/context/LanguageContext";
+import LanguageToggle from "@/components/layout/LanguageToggle";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -45,11 +47,14 @@ export default function RootLayout({
       className={`${inter.variable} ${playfair.variable} ${cinzel.variable} ${space.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-noir text-text-primary font-inter">
-        <AccessibilityProvider>
-          <PresentationProvider>
-            {children}
-          </PresentationProvider>
-        </AccessibilityProvider>
+        <LanguageProvider>
+          <AccessibilityProvider>
+            <PresentationProvider>
+              <LanguageToggle />
+              {children}
+            </PresentationProvider>
+          </AccessibilityProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

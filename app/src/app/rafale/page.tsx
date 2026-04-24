@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useAccessibility } from '@/context/AccessibilityContext';
+import { useLanguage } from '@/context/LanguageContext';
 import ReadingProgress from '@/components/layout/ReadingProgress';
 import Footer from '@/components/layout/Footer';
 import GlossaryTooltip from '@/components/ui/GlossaryTooltip';
@@ -11,8 +12,9 @@ import Image from 'next/image';
 
 export default function RafalePage() {
   const { reducedMotion } = useAccessibility();
+  const { t } = useLanguage();
 
-  const fadeUp = reducedMotion ? {} : {
+  const fadeUp = {
     initial: { opacity: 0, y: 30 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true },
@@ -27,7 +29,7 @@ export default function RafalePage() {
       <div className="fixed top-4 left-4 z-50">
         <Link href="/accueil" className="glass glass-hover px-4 py-2 rounded-full text-xs tracking-wider text-text-muted hover:text-text-primary transition-colors duration-300 flex items-center gap-2" data-interactive>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
-          Retour
+          {t('Retour', 'Back')}
         </Link>
       </div>
 
@@ -38,41 +40,41 @@ export default function RafalePage() {
         </div>
 
         {/* Real Image filling right side - Visual focus */}
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[45%] h-[75vh] opacity-80">
+        <div className="absolute right-0 bottom-0 lg:top-1/2 lg:-translate-y-1/2 w-full lg:w-[45%] h-[40vh] lg:h-[75vh] opacity-20 lg:opacity-80">
           <Image 
             src="/images/rafale.png" 
             alt="Dassault Rafale" 
             fill 
-            className="object-cover object-left rounded-l-3xl presentation-highlight shadow-[0_0_50px_rgba(37,99,235,0.2)]" 
+            className="object-cover object-center lg:object-left rounded-t-3xl lg:rounded-t-none lg:rounded-l-3xl presentation-highlight shadow-[0_0_50px_rgba(37,99,235,0.2)]" 
           />
         </div>
 
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-12 grid grid-cols-2 gap-8 items-center">
-          <motion.div {...fadeUp} className="max-w-2xl">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <motion.div {...fadeUp} className="max-w-2xl py-20 pb-80 lg:pb-0 lg:py-0">
             <div className="flex items-center gap-3 mb-6 presentation-highlight text-horizon">
               <Plane size={32} />
               <Flag size={32} className="text-horizon/60" />
             </div>
             
-            <p className="font-cinzel text-sm tracking-[0.3em] uppercase text-horizon/60 mb-2 presentation-dim">Vitesse Maximale</p>
+            <p className="font-cinzel text-xs md:text-sm tracking-[0.3em] uppercase text-horizon/60 mb-2 presentation-dim">{t('Vitesse Maximale', 'Maximum Speed')}</p>
             {/* GIANT NUMBER */}
-            <h1 className="font-space text-7xl md:text-8xl lg:text-[10rem] font-bold text-text-primary leading-none mb-6 presentation-highlight glow-blue">
+            <h1 className="font-space text-6xl md:text-8xl lg:text-[10rem] font-bold text-text-primary leading-none mb-6 presentation-highlight glow-blue break-words">
               Mach<br/>1.8
             </h1>
             
-            <p className="font-playfair text-2xl md:text-3xl text-text-secondary italic leading-relaxed presentation-dim mb-8">
-              &ldquo;Maître du ciel, fusion d&apos;élégance et de puissance brute.&rdquo;
+            <p className="font-playfair text-xl md:text-3xl text-text-secondary italic leading-relaxed presentation-dim mb-8">
+              &ldquo;{t("Maître du ciel, fusion d'élégance et de puissance brute.", "Master of the sky, a fusion of elegance and raw power.")}&rdquo;
             </p>
             
-            <p className="text-text-muted text-lg presentation-dim border-l-2 border-horizon/30 pl-4 py-2">
-              Le Dassault Rafale est le summum de l&apos;Aérospatiale Française.
+            <p className="text-text-muted text-base md:text-lg presentation-dim border-l-2 border-horizon/30 pl-4 py-2">
+              {t("Le Dassault Rafale est le summum de l'Aérospatiale Française.", "The Dassault Rafale is the pinnacle of French Aerospace.")}
             </p>
           </motion.div>
         </div>
 
         {/* Scroll indicator */}
         <motion.div
-          animate={reducedMotion ? {} : { y: [0, 8, 0] }}
+          animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
           className="absolute bottom-12 left-1/2 -translate-x-1/2 text-text-muted presentation-highlight"
         >
@@ -87,19 +89,19 @@ export default function RafalePage() {
           <p className="text-text-muted presentation-dim">L'évolution de l'indépendance stratégique.</p>
         </motion.div>
 
-        <div className="space-y-24 relative before:content-[''] before:absolute before:left-1/2 before:-translate-x-1/2 before:w-px before:h-full before:bg-gradient-to-b before:from-horizon/50 before:via-horizon/20 before:to-transparent">
+        <div className="space-y-16 md:space-y-24 relative md:before:content-[''] md:before:absolute md:before:left-1/2 md:before:-translate-x-1/2 md:before:w-px md:before:h-full md:before:bg-gradient-to-b md:before:from-horizon/50 md:before:via-horizon/20 md:before:to-transparent">
           
           {/* Timeline Item 1 */}
-          <motion.div {...fadeUp} className="flex items-center justify-between gap-12 w-full">
-            <div className="w-1/2 text-right pr-12">
+          <motion.div {...fadeUp} className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12 w-full">
+            <div className="w-full md:w-1/2 text-center md:text-right px-4 md:px-0 md:pr-12">
               <h3 className="font-space text-6xl text-text-primary presentation-highlight">1986</h3>
               <p className="font-cinzel text-horizon/80 tracking-widest mt-2 mb-4 presentation-dim">Premier Vol</p>
             </div>
-            <div className="absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-noir border-4 border-horizon shadow-[0_0_15px_rgba(37,99,235,0.5)] z-10 presentation-highlight flex items-center justify-center">
+            <div className="relative md:absolute md:left-1/2 md:-translate-x-1/2 w-8 h-8 rounded-full bg-noir border-4 border-horizon shadow-[0_0_15px_rgba(37,99,235,0.5)] z-10 presentation-highlight flex items-center justify-center mb-4 md:mb-0">
               <Plane size={12} className="text-text-primary" />
             </div>
-            <div className="w-1/2 pl-12 presentation-dim">
-              <p className="text-text-secondary text-lg leading-relaxed bg-glass-bg p-6 rounded-2xl border border-glass-border">
+            <div className="w-full md:w-1/2 px-4 md:px-0 md:pl-12 presentation-dim text-center md:text-left">
+              <p className="text-text-secondary text-base md:text-lg leading-relaxed bg-glass-bg p-6 rounded-2xl border border-glass-border">
                 Le Dassault Rafale prend son envol lors de son premier vol d'essai. C'est l'aube d'une nouvelle ère : un avion de combat{' '}
                 <GlossaryTooltip term="Omnirôle" definition="Capable d'assurer toutes les missions de combat.">
                   omnirôle
@@ -110,16 +112,16 @@ export default function RafalePage() {
           </motion.div>
 
           {/* Timeline Item 2 */}
-          <motion.div {...fadeUp} className="flex items-center justify-between gap-12 w-full flex-row-reverse">
-            <div className="w-1/2 text-left pl-12">
+          <motion.div {...fadeUp} className="flex flex-col md:flex-row-reverse items-center justify-between gap-6 md:gap-12 w-full">
+            <div className="w-full md:w-1/2 text-center md:text-left px-4 md:px-0 md:pl-12">
               <h3 className="font-space text-6xl text-text-primary presentation-highlight">2001</h3>
               <p className="font-cinzel text-champagne/80 tracking-widest mt-2 mb-4 presentation-dim">Mise en Service</p>
             </div>
-            <div className="absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-noir border-4 border-champagne shadow-[0_0_15px_rgba(212,175,55,0.5)] z-10 presentation-highlight flex items-center justify-center">
+            <div className="relative md:absolute md:left-1/2 md:-translate-x-1/2 w-8 h-8 rounded-full bg-noir border-4 border-champagne shadow-[0_0_15px_rgba(212,175,55,0.5)] z-10 presentation-highlight flex items-center justify-center mb-4 md:mb-0">
               <Target size={12} className="text-text-primary" />
             </div>
-            <div className="w-1/2 pr-12 text-right presentation-dim">
-              <p className="text-text-secondary text-lg leading-relaxed bg-glass-bg p-6 rounded-2xl border border-glass-border">
+            <div className="w-full md:w-1/2 px-4 md:px-0 md:pr-12 presentation-dim text-center md:text-right">
+              <p className="text-text-secondary text-base md:text-lg leading-relaxed bg-glass-bg p-6 rounded-2xl border border-glass-border">
                 Intégration officielle dans la Marine Nationale, puis dans l'Armée de l'Air. Le Rafale inaugure l&apos;ère moderne de la dissuasion nucléaire aéroportée et s&apos;impose très rapidement comme un acteur géopolitique majeur lors de diverses missions internationales à haut risque grâce à sa configuration d&apos;armement modulaire inédite et son système de guerre électronique.
               </p>
             </div>
@@ -157,8 +159,8 @@ export default function RafalePage() {
           ].map((item, i) => (
             <motion.div
               key={i}
-              initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
-              whileInView={reducedMotion ? {} : { opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.15, duration: 0.6 }}
               className="glass p-10 rounded-2xl text-center group hover:bg-glass-hover transition-colors"

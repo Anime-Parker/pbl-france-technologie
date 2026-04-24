@@ -4,11 +4,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { playClick } from '@/lib/sounds';
 import { useAccessibility } from '@/context/AccessibilityContext';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function WelcomePage() {
   const [isExiting, setIsExiting] = useState(false);
   const router = useRouter();
   const { soundEnabled, reducedMotion } = useAccessibility();
+  const { t } = useLanguage();
 
   const handleEnter = () => {
     playClick(soundEnabled);
@@ -16,7 +18,7 @@ export default function WelcomePage() {
     setTimeout(() => router.push('/accueil'), 1200);
   };
 
-  const fadeIn = reducedMotion ? {} : {
+  const fadeIn = {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
   };
@@ -26,7 +28,7 @@ export default function WelcomePage() {
       {!isExiting ? (
         <motion.main
           key="welcome"
-          exit={reducedMotion ? {} : { opacity: 0, scale: 1.1 }}
+          exit={{ opacity: 0, scale: 1.1 }}
           transition={{ duration: 1, ease: 'easeInOut' }}
           className="fixed inset-0 flex items-center justify-center bg-noir z-50 overflow-hidden"
         >
@@ -44,13 +46,23 @@ export default function WelcomePage() {
               className="w-16 h-px bg-gradient-to-r from-transparent via-champagne/40 to-transparent mb-12"
             />
 
+            {/* Title */}
+            <motion.h1
+              {...fadeIn}
+              transition={{ duration: 1.5, delay: 0.5 }}
+              className="font-playfair text-6xl md:text-8xl lg:text-9xl text-text-primary tracking-tight mb-8"
+            >
+              {t('Technologie', 'Technology')} <br />
+              <span className="text-champagne italic glow-gold">{t('Française', 'French')}</span>
+            </motion.h1>
+
             {/* Quote */}
             <motion.blockquote
               {...fadeIn}
               transition={{ duration: 1.5, delay: 0.8 }}
               className="font-playfair text-2xl md:text-3xl lg:text-4xl text-champagne/90 leading-relaxed italic glow-gold mb-8"
             >
-              &ldquo;L&apos;ingénierie est l&apos;art d&apos;organiser et de diriger les forces de la nature au service de l&apos;humanité.&rdquo;
+              &ldquo;{t("L'ingénierie est l'art d'organiser et de diriger les forces de la nature au service de l'humanité.", "Engineering is the art of organizing and directing the forces of nature for the benefit of humanity.")}&rdquo;
             </motion.blockquote>
 
             <motion.p
@@ -68,7 +80,7 @@ export default function WelcomePage() {
               className="space-y-3 mb-16"
             >
               <p className="text-text-secondary text-sm tracking-wider uppercase font-cinzel">
-                Présenté par l'équipe PBL 8
+                {t("Présenté par l'équipe PBL 8", "Presented by PBL Team 8")}
               </p>
             </motion.div>
 
@@ -88,7 +100,7 @@ export default function WelcomePage() {
                 background: 'radial-gradient(circle at center, rgba(212,175,55,0.08), transparent 70%)',
               }} />
               <span className="relative font-playfair text-sm tracking-wider text-champagne/80 group-hover:text-champagne transition-colors duration-500">
-                Commencer l&apos;immersion
+                {t("Commencer l'immersion", "Begin the immersion")}
               </span>
             </motion.button>
 

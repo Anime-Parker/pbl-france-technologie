@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useAccessibility } from '@/context/AccessibilityContext';
+import { useLanguage } from '@/context/LanguageContext';
 import ReadingProgress from '@/components/layout/ReadingProgress';
 import Footer from '@/components/layout/Footer';
 import GlossaryTooltip from '@/components/ui/GlossaryTooltip';
@@ -11,8 +12,9 @@ import Image from 'next/image';
 
 export default function IterPage() {
   const { reducedMotion } = useAccessibility();
+  const { t } = useLanguage();
 
-  const fadeUp = reducedMotion ? {} : {
+  const fadeUp = {
     initial: { opacity: 0, y: 30 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true },
@@ -27,7 +29,7 @@ export default function IterPage() {
       <div className="fixed top-4 left-4 z-50">
         <Link href="/accueil" className="glass glass-hover px-4 py-2 rounded-full text-xs tracking-wider text-text-muted hover:text-text-primary transition-colors duration-300 flex items-center gap-2" data-interactive>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
-          Retour
+          {t('Retour', 'Back')}
         </Link>
       </div>
 
@@ -38,41 +40,41 @@ export default function IterPage() {
         </div>
 
         {/* Real Image filling right side - Visual focus */}
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[45%] h-[75vh] opacity-80">
+        <div className="absolute right-0 bottom-0 lg:top-1/2 lg:-translate-y-1/2 w-full lg:w-[45%] h-[40vh] lg:h-[75vh] opacity-20 lg:opacity-80">
           <Image 
             src="/images/iter.png" 
             alt="ITER Tokamak Reactor" 
             fill 
-            className="object-cover object-left rounded-l-3xl presentation-highlight shadow-[0_0_50px_rgba(190,18,60,0.2)]" 
+            className="object-cover object-center lg:object-left rounded-t-3xl lg:rounded-t-none lg:rounded-l-3xl presentation-highlight shadow-[0_0_50px_rgba(190,18,60,0.2)]" 
           />
         </div>
 
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-12 grid grid-cols-2 gap-8 items-center">
-          <motion.div {...fadeUp} className="max-w-2xl">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <motion.div {...fadeUp} className="max-w-2xl py-20 pb-80 lg:pb-0 lg:py-0">
             <div className="flex items-center gap-3 mb-6 presentation-highlight text-carmin">
               <Atom size={32} />
               <Flame size={32} className="text-carmin/60" />
             </div>
 
-            <p className="font-cinzel text-sm tracking-[0.3em] uppercase text-carmin/60 mb-2 presentation-dim">Température du Plasma</p>
+            <p className="font-cinzel text-xs md:text-sm tracking-[0.3em] uppercase text-carmin/60 mb-2 presentation-dim">{t('Température du Plasma', 'Plasma Temperature')}</p>
             {/* GIANT NUMBER */}
-            <h1 className="font-space text-7xl md:text-8xl lg:text-9xl font-bold text-text-primary leading-none mb-6 presentation-highlight glow-carmin">
-              150M<span className="text-5xl text-text-muted relative -top-6">°C</span>
+            <h1 className="font-space text-6xl md:text-8xl lg:text-9xl font-bold text-text-primary leading-none mb-6 presentation-highlight glow-carmin break-words">
+              150M<span className="text-4xl lg:text-5xl text-text-muted relative -top-4 lg:-top-6">°C</span>
             </h1>
 
-            <p className="font-playfair text-2xl md:text-3xl text-text-secondary italic leading-relaxed presentation-dim mb-8">
-              &ldquo;Recreer l'énergie des étoiles sur Terre.&rdquo;
+            <p className="font-playfair text-xl md:text-3xl text-text-secondary italic leading-relaxed presentation-dim mb-8">
+              &ldquo;{t("Recreer l'énergie des étoiles sur Terre.", "Recreating the energy of the stars on Earth.")}&rdquo;
             </p>
 
-            <p className="text-text-muted text-lg presentation-dim border-l-2 border-carmin/30 pl-4 py-2">
-              Le réacteur de fusion nucléaire le plus ambitieux jamais conçu.
+            <p className="text-text-muted text-base md:text-lg presentation-dim border-l-2 border-carmin/30 pl-4 py-2">
+              {t("ITER est le plus grand projet scientifique au monde, une collaboration sans précédent.", "ITER is the largest scientific project in the world, an unprecedented collaboration.")}
             </p>
           </motion.div>
         </div>
 
         {/* Scroll indicator */}
         <motion.div
-          animate={reducedMotion ? {} : { y: [0, 8, 0] }}
+          animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
           className="absolute bottom-12 left-1/2 -translate-x-1/2 text-text-muted presentation-highlight"
         >
@@ -87,35 +89,35 @@ export default function IterPage() {
           <p className="text-text-muted presentation-dim">La quête de l'énergie infinie et propre.</p>
         </motion.div>
 
-        <div className="space-y-24 relative before:content-[''] before:absolute before:left-1/2 before:-translate-x-1/2 before:w-px before:h-full before:bg-gradient-to-b before:from-carmin/50 before:via-carmin/20 before:to-transparent">
+        <div className="space-y-16 md:space-y-24 relative md:before:content-[''] md:before:absolute md:before:left-1/2 md:before:-translate-x-1/2 md:before:w-px md:before:h-full md:before:bg-gradient-to-b md:before:from-carmin/50 md:before:via-carmin/20 md:before:to-transparent">
           
           {/* Timeline Item 1 */}
-          <motion.div {...fadeUp} className="flex items-center justify-between gap-12 w-full">
-            <div className="w-1/2 text-right pr-12">
+          <motion.div {...fadeUp} className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12 w-full">
+            <div className="w-full md:w-1/2 text-center md:text-right px-4 md:px-0 md:pr-12">
               <h3 className="font-space text-6xl text-text-primary presentation-highlight">2006</h3>
               <p className="font-cinzel text-carmin/80 tracking-widest mt-2 mb-4 presentation-dim">L'Accord Historique</p>
             </div>
-            <div className="absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-noir border-4 border-carmin shadow-[0_0_15px_rgba(190,18,60,0.5)] z-10 presentation-highlight flex items-center justify-center">
+            <div className="relative md:absolute md:left-1/2 md:-translate-x-1/2 w-8 h-8 rounded-full bg-noir border-4 border-carmin shadow-[0_0_15px_rgba(190,18,60,0.5)] z-10 presentation-highlight flex items-center justify-center mb-4 md:mb-0">
               <Atom size={12} className="text-text-primary" />
             </div>
-            <div className="w-1/2 pl-12 presentation-dim">
-              <p className="text-text-secondary text-lg leading-relaxed bg-glass-bg p-6 rounded-2xl border border-glass-border">
+            <div className="w-full md:w-1/2 px-4 md:px-0 md:pl-12 presentation-dim text-center md:text-left">
+              <p className="text-text-secondary text-base md:text-lg leading-relaxed bg-glass-bg p-6 rounded-2xl border border-glass-border">
                 Signature officielle du traité de l'accord bilatéral <GlossaryTooltip term="ITER" definition="International Thermonuclear Experimental Reactor">ITER</GlossaryTooltip> réunissant l'expertise scientifique de 35 pays. Ce projet, d'une envergure sans précédent dans l'histoire de l'humanité, est stratégiquement basé à Cadarache, dans le sud de la France, confirmant le leadership technologique national.
               </p>
             </div>
           </motion.div>
 
           {/* Timeline Item 2 */}
-          <motion.div {...fadeUp} className="flex items-center justify-between gap-12 w-full flex-row-reverse">
-            <div className="w-1/2 text-left pl-12">
+          <motion.div {...fadeUp} className="flex flex-col md:flex-row-reverse items-center justify-between gap-6 md:gap-12 w-full">
+            <div className="w-full md:w-1/2 text-center md:text-left px-4 md:px-0 md:pl-12">
               <h3 className="font-space text-6xl text-text-primary presentation-highlight">2026</h3>
               <p className="font-cinzel text-carmin/80 tracking-widest mt-2 mb-4 presentation-dim">Assemblage & Tests</p>
             </div>
-            <div className="absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-noir border-4 border-carmin shadow-[0_0_15px_rgba(190,18,60,0.5)] z-10 presentation-highlight flex items-center justify-center">
+            <div className="relative md:absolute md:left-1/2 md:-translate-x-1/2 w-8 h-8 rounded-full bg-noir border-4 border-carmin shadow-[0_0_15px_rgba(190,18,60,0.5)] z-10 presentation-highlight flex items-center justify-center mb-4 md:mb-0">
               <Zap size={12} className="text-text-primary" />
             </div>
-            <div className="w-1/2 pr-12 text-right presentation-dim">
-              <p className="text-text-secondary text-lg leading-relaxed bg-glass-bg p-6 rounded-2xl border border-glass-border">
+            <div className="w-full md:w-1/2 px-4 md:px-0 md:pr-12 presentation-dim text-center md:text-right">
+              <p className="text-text-secondary text-base md:text-lg leading-relaxed bg-glass-bg p-6 rounded-2xl border border-glass-border">
                 Début colossal de l'assemblage du Tokamak, le cœur du dispositif magnétique pesant plus de 23 000 tonnes. Cette étape majeure prépare le réacteur aux premières opérations de chauffe pour démontrer définitivement la faisabilité scientifique de la fusion nucléaire sur Terre. Les matériaux repoussent les limites de la physique.
               </p>
             </div>
@@ -153,8 +155,8 @@ export default function IterPage() {
           ].map((item, i) => (
             <motion.div
               key={i}
-              initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
-              whileInView={reducedMotion ? {} : { opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.15, duration: 0.6 }}
               className="glass p-10 rounded-2xl text-center group hover:bg-glass-hover transition-colors"

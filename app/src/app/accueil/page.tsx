@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useAccessibility } from '@/context/AccessibilityContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { playClick, playHover } from '@/lib/sounds';
 import ReadingProgress from '@/components/layout/ReadingProgress';
 import Footer from '@/components/layout/Footer';
@@ -23,6 +24,7 @@ const item = {
 
 export default function AccueilPage() {
   const { soundEnabled, reducedMotion } = useAccessibility();
+  const { t } = useLanguage();
 
   const cardBase = "relative rounded-2xl overflow-hidden transition-all duration-500 group";
 
@@ -39,33 +41,33 @@ export default function AccueilPage() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
         {/* Header */}
         <motion.div
-          initial={reducedMotion ? {} : { opacity: 0, y: 20 }}
-          animate={reducedMotion ? {} : { opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
           <div className="flex justify-center items-center gap-4 mb-4 presentation-highlight">
             <Flag size={32} className="text-champagne/80" />
             <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl text-text-primary">
-              L&apos;Ingénierie de <span className="text-champagne glow-gold italic">Demain</span>
+              {t("L'Ingénierie de", "The Engineering of")} <span className="text-champagne glow-gold italic">{t("Demain", "Tomorrow")}</span>
             </h1>
             <Flag size={32} className="text-champagne/80" />
           </div>
           <p className="text-text-muted text-lg max-w-xl mx-auto presentation-dim">
-            Les triomphes technologiques français qui façonnent le monde
+            {t("Les triomphes technologiques français qui façonnent le monde", "French technological triumphs shaping the world")}
           </p>
           <div className="w-24 h-px bg-gradient-to-r from-transparent via-champagne/30 to-transparent mx-auto mt-8" />
         </motion.div>
 
         {/* Bento Grid */}
         <motion.div
-          variants={reducedMotion ? {} : container}
+          variants={container}
           initial="hidden"
           animate="show"
           className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4 auto-rows-[200px] md:auto-rows-[220px]"
         >
           {/* RAFALE - Large Visually Dominant Card */}
-          <motion.div variants={reducedMotion ? {} : item} className="md:col-span-4 lg:col-span-4 md:row-span-2">
+          <motion.div variants={item} className="md:col-span-4 lg:col-span-4 md:row-span-2">
             <Link
               href="/rafale"
               onClick={() => playClick(soundEnabled)}
@@ -75,10 +77,10 @@ export default function AccueilPage() {
             >
               <div className="absolute inset-0 bg-gradient-to-br from-horizon/[0.05] to-transparent pointer-events-none" />
               <div className="relative z-10 flex items-start justify-between w-full">
-                 <div>
+                  <div>
                     <div className="flex items-center gap-2 mb-2">
                        <Plane size={24} className="text-horizon" />
-                       <span className="text-xs tracking-widest uppercase text-horizon/70 font-cinzel presentation-dim">Aérospatiale</span>
+                       <span className="text-xs tracking-widest uppercase text-horizon/70 font-cinzel presentation-dim">{t('Aérospatiale', 'Aerospace')}</span>
                     </div>
                     <h2 className="font-playfair text-4xl md:text-5xl text-text-primary mt-2 group-hover:text-horizon transition-colors duration-300 presentation-highlight">
                       Dassault Rafale
@@ -88,18 +90,21 @@ export default function AccueilPage() {
                     <Flag size={20} />
                  </div>
               </div>
-              <p className="text-text-secondary mt-3 max-w-md text-sm leading-relaxed presentation-dim relative z-10">
-                L&apos;avion de combat omnirôle qui incarne la souveraineté technologique française, expliqué à travers ses capacités de pointe.
+              <p className="text-text-secondary mt-3 max-w-md text-sm md:text-base leading-relaxed presentation-dim relative z-10">
+                {t(
+                  "L'avion de combat omnirôle qui incarne la souveraineté technologique française, expliqué à travers ses capacités de pointe.",
+                  "The omnirole combat aircraft that embodies French technological sovereignty, explained through its cutting-edge capabilities."
+                )}
               </p>
               
-              <div className="absolute right-0 bottom-0 w-80 h-80 md:w-96 md:h-96 opacity-90 group-hover:opacity-100 transition-opacity duration-500 scale-110 translate-x-12 translate-y-12">
+              <div className="absolute right-0 bottom-0 w-60 h-60 md:w-96 md:h-96 opacity-90 group-hover:opacity-100 transition-opacity duration-500 scale-110 translate-x-12 translate-y-12">
                 <Image src="/images/rafale.png" alt="Rafale" fill className="object-cover rounded-tl-[100px] presentation-highlight" />
               </div>
             </Link>
           </motion.div>
 
           {/* CARTE À PUCE - Medium Visual Card */}
-          <motion.div variants={reducedMotion ? {} : item} className="md:col-span-2 lg:col-span-2">
+          <motion.div variants={item} className="md:col-span-2 lg:col-span-2">
             <Link
               href="/carte-a-puce"
               onClick={() => playClick(soundEnabled)}
@@ -111,7 +116,7 @@ export default function AccueilPage() {
               <div className="relative z-10">
                 <div className="flex items-center gap-2 mb-1.5">
                    <Cpu size={20} className="text-champagne/80" />
-                   <span className="text-xs tracking-widest uppercase text-champagne/60 font-cinzel presentation-dim">Microélectronique</span>
+                   <span className="text-xs tracking-widest uppercase text-champagne/60 font-cinzel presentation-dim">{t('Microélectronique', 'Microelectronics')}</span>
                 </div>
                 <h2 className="font-playfair text-2xl text-text-primary group-hover:text-champagne transition-colors duration-300 presentation-highlight">
                   Carte à Puce
@@ -124,7 +129,7 @@ export default function AccueilPage() {
           </motion.div>
 
           {/* ITER - Medium Visual Card */}
-          <motion.div variants={reducedMotion ? {} : item} className="md:col-span-2 lg:col-span-2">
+          <motion.div variants={item} className="md:col-span-2 lg:col-span-2">
             <Link
               href="/iter"
               onClick={() => playClick(soundEnabled)}
@@ -136,7 +141,7 @@ export default function AccueilPage() {
               <div className="relative z-10">
                 <div className="flex items-center gap-2 mb-1.5">
                    <Atom size={20} className="text-carmin/80" />
-                   <span className="text-xs tracking-widest uppercase text-carmin/60 font-cinzel presentation-dim">Énergie de Fusion</span>
+                   <span className="text-xs tracking-widest uppercase text-carmin/60 font-cinzel presentation-dim">{t('Énergie de Fusion', 'Fusion Energy')}</span>
                 </div>
                 <h2 className="font-playfair text-2xl text-text-primary group-hover:text-carmin-glow transition-colors duration-300 presentation-highlight">
                   ITER
@@ -149,12 +154,12 @@ export default function AccueilPage() {
           </motion.div>
 
           {/* Info Card - Team Members */}
-          <motion.div variants={reducedMotion ? {} : item} className="md:col-span-2 lg:col-span-3">
+          <motion.div variants={item} className="md:col-span-2 lg:col-span-3">
             <div className={`${cardBase} h-full flex items-center justify-center p-6 glass`}>
               <div className="text-center w-full">
                 <Users size={28} className="mx-auto mb-3 text-champagne presentation-highlight" />
-                <p className="font-cinzel text-xs tracking-widest uppercase text-champagne/80 mb-4 presentation-dim border-b border-glass-border pb-2">Équipe 8 (Team 8)</p>
-                <ul className="text-text-primary font-space text-lg space-y-2 presentation-highlight">
+                <p className="font-cinzel text-xs tracking-widest uppercase text-champagne/80 mb-4 presentation-dim border-b border-glass-border pb-2">{t('Équipe 8 (Team 8)', 'Project Team 8')}</p>
+                <ul className="text-text-primary font-space text-base md:text-lg space-y-1 md:space-y-2 presentation-highlight">
                   <li>CH CHARAN</li>
                   <li>M SIDDHARTHA</li>
                   <li>R SRIRAM</li>
@@ -164,7 +169,7 @@ export default function AccueilPage() {
           </motion.div>
 
           {/* Info Card - Sources */}
-          <motion.div variants={reducedMotion ? {} : item} className="md:col-span-2 lg:col-span-3">
+          <motion.div variants={item} className="md:col-span-2 lg:col-span-3">
             <div className={`${cardBase} h-full flex items-center justify-center p-6 glass glass-hover`} data-interactive>
               <div className="text-center w-full">
                 <ExternalLink size={28} className="mx-auto mb-3 text-horizon presentation-highlight" />
