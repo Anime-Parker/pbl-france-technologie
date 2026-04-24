@@ -77,18 +77,18 @@ export default function AccueilPage() {
             >
               <div className="absolute inset-0 bg-gradient-to-br from-horizon/[0.05] to-transparent pointer-events-none" />
               <div className="relative z-10 flex items-start justify-between w-full">
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                       <Plane size={24} className="text-horizon" />
-                       <span className="text-xs tracking-widest uppercase text-horizon/70 font-cinzel presentation-dim">{t('Aérospatiale', 'Aerospace')}</span>
-                    </div>
-                    <h2 className="font-playfair text-4xl md:text-5xl text-text-primary mt-2 group-hover:text-horizon transition-colors duration-300 presentation-highlight">
-                      Dassault Rafale
-                    </h2>
-                 </div>
-                 <div className="w-12 h-12 rounded-full border border-horizon/30 flex items-center justify-center text-horizon backdrop-blur-md">
-                    <Flag size={20} />
-                 </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <Plane size={24} className="text-horizon" />
+                    <span className="text-xs tracking-widest uppercase text-horizon/70 font-cinzel presentation-dim">{t('Aérospatiale', 'Aerospace')}</span>
+                  </div>
+                  <h2 className="font-playfair text-4xl md:text-5xl text-text-primary mt-2 group-hover:text-horizon transition-colors duration-300 presentation-highlight">
+                    Industries Lourdes
+                  </h2>
+                </div>
+                <div className="w-12 h-12 rounded-full border border-horizon/30 flex items-center justify-center text-horizon backdrop-blur-md">
+                  <Flag size={20} />
+                </div>
               </div>
               <p className="text-text-secondary mt-3 max-w-md text-sm md:text-base leading-relaxed presentation-dim relative z-10">
                 {t(
@@ -96,7 +96,7 @@ export default function AccueilPage() {
                   "The omnirole combat aircraft that embodies French technological sovereignty, explained through its cutting-edge capabilities."
                 )}
               </p>
-              
+
               <div className="absolute right-0 bottom-0 w-60 h-60 md:w-96 md:h-96 opacity-90 group-hover:opacity-100 transition-opacity duration-500 scale-110 translate-x-12 translate-y-12">
                 <Image src="/images/rafale.png" alt="Rafale" fill className="object-cover rounded-tl-[100px] presentation-highlight" />
               </div>
@@ -115,8 +115,8 @@ export default function AccueilPage() {
               <div className="absolute inset-0 bg-gradient-to-br from-champagne/[0.03] to-transparent pointer-events-none" />
               <div className="relative z-10">
                 <div className="flex items-center gap-2 mb-1.5">
-                   <Cpu size={20} className="text-champagne/80" />
-                   <span className="text-xs tracking-widest uppercase text-champagne/60 font-cinzel presentation-dim">{t('Microélectronique', 'Microelectronics')}</span>
+                  <Cpu size={20} className="text-champagne/80" />
+                  <span className="text-xs tracking-widest uppercase text-champagne/60 font-cinzel presentation-dim">{t('Microélectronique', 'Microelectronics')}</span>
                 </div>
                 <h2 className="font-playfair text-2xl text-text-primary group-hover:text-champagne transition-colors duration-300 presentation-highlight">
                   Carte à Puce
@@ -140,8 +140,8 @@ export default function AccueilPage() {
               <div className="absolute inset-0 bg-gradient-to-br from-carmin/[0.04] to-transparent pointer-events-none" />
               <div className="relative z-10">
                 <div className="flex items-center gap-2 mb-1.5">
-                   <Atom size={20} className="text-carmin/80" />
-                   <span className="text-xs tracking-widest uppercase text-carmin/60 font-cinzel presentation-dim">{t('Énergie de Fusion', 'Fusion Energy')}</span>
+                  <Atom size={20} className="text-carmin/80" />
+                  <span className="text-xs tracking-widest uppercase text-carmin/60 font-cinzel presentation-dim">{t('Énergie de Fusion', 'Fusion Energy')}</span>
                 </div>
                 <h2 className="font-playfair text-2xl text-text-primary group-hover:text-carmin-glow transition-colors duration-300 presentation-highlight">
                   ITER
